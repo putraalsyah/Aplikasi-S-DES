@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S-DES Calculator | Simplified Data Encryption Standard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo-block">
+        <div class="logo-icon">
+          <span class="lock-icon">&#128274;</span>
+        </div>
+        <div class="logo-text">
+          <span class="logo-main">S-DES</span>
+          <span class="logo-sub">Simplified Data Encryption Standard</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="#calculator" class="nav-link">Kalkulator</a>
+        <a href="#about" class="nav-link">Tentang</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Kriptografi Pembelajaran</div>
+      <h1 class="hero-title">Simplified DES<br /><span class="accent">Calculator</span></h1>
+      <p class="hero-desc">Simulasi lengkap algoritma S-DES dengan visualisasi setiap langkah perhitungan secara rinci dan terstruktur. Cocok untuk pembelajaran kriptografi.</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">8</span><span class="stat-lbl">bit Plaintext</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">10</span><span class="stat-lbl">bit Kunci</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">2</span><span class="stat-lbl">Round Enkripsi</span></div>
+      </div>
+    </div>
+    <div class="hero-decoration">
+      <div class="deco-grid">
+        <div class="bit-float b1">1</div>
+        <div class="bit-float b2">0</div>
+        <div class="bit-float b3">1</div>
+        <div class="bit-float b4">1</div>
+        <div class="bit-float b5">0</div>
+        <div class="bit-float b6">0</div>
+        <div class="bit-float b7">1</div>
+        <div class="bit-float b8">0</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CALCULATOR -->
+  <main id="calculator" class="main">
+    <div class="container">
+      <!-- INPUT CARD -->
+      <div class="card input-card">
+        <div class="card-header">
+          <div class="card-badge">INPUT</div>
+          <h2 class="card-title">Parameter Enkripsi / Dekripsi</h2>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">
+                <span class="label-num">01</span>
+                Plaintext / Ciphertext
+                <span class="label-hint">(8-bit biner)</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="text" id="inputText" class="form-input mono" maxlength="8" placeholder="00000000" autocomplete="off" />
+                <span class="input-badge" id="inputBadge">0/8</span>
+              </div>
+              <div class="bit-preview" id="inputPreview"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span class="label-num">02</span>
+                Kunci (Key)
+                <span class="label-hint">(10-bit biner)</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="text" id="inputKey" class="form-input mono" maxlength="10" placeholder="0000000000" autocomplete="off" />
+                <span class="input-badge" id="keyBadge">0/10</span>
+              </div>
+              <div class="bit-preview" id="keyPreview"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span class="label-num">03</span>
+                Mode Operasi
+              </label>
+              <div class="mode-selector">
+                <label class="mode-option active" id="modeEnc">
+                  <input type="radio" name="mode" value="encrypt" checked hidden />
+                  <span class="mode-icon">🔒</span>
+                  <span class="mode-text">Enkripsi</span>
+                </label>
+                <label class="mode-option" id="modeDec">
+                  <input type="radio" name="mode" value="decrypt" hidden />
+                  <span class="mode-icon">🔓</span>
+                  <span class="mode-text">Dekripsi</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" id="btnSubmit">
+              <span class="btn-icon">▶</span>
+              PROSES
+            </button>
+            <button class="btn btn-secondary" id="btnReset">
+              <span class="btn-icon">↺</span>
+              RESET
+            </button>
+          </div>
+
+          <div class="error-msg" id="errorMsg" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- RESULT CARD -->
+      <div class="card result-card" id="resultCard" style="display:none">
+        <div class="card-header">
+          <div class="card-badge success">HASIL</div>
+          <h2 class="card-title" id="resultTitle">Hasil Enkripsi</h2>
+        </div>
+        <div class="card-body">
+          <div class="result-row">
+            <div class="result-item">
+              <span class="result-lbl">Input</span>
+              <div class="bit-boxes" id="resultInput"></div>
+            </div>
+            <div class="result-arrow">→</div>
+            <div class="result-item">
+              <span class="result-lbl" id="resultOutputLabel">Ciphertext</span>
+              <div class="bit-boxes" id="resultOutput"></div>
+            </div>
+          </div>
+          <div class="result-hex">
+            <span class="result-lbl">Kunci yang digunakan:</span>
+            <div class="bit-boxes" id="resultKey"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEPS TOGGLE -->
+      <div id="stepsSection" style="display:none">
+        <div class="steps-toggle" id="stepsToggle">
+          <span class="toggle-icon" id="toggleIcon">▼</span>
+          <span>Tampilkan Solusi Penyelesaian (Step-by-Step)</span>
+        </div>
+
+        <div id="stepsContent" class="steps-content" style="display:none">
+          <!-- KEY GENERATION -->
+          <div class="section-block">
+            <div class="section-header">
+              <div class="section-num">A</div>
+              <h3>Pembangkitan Kunci (Key Generation)</h3>
+            </div>
+            <div id="keyGenSteps"></div>
+          </div>
+
+          <!-- ENCRYPTION/DECRYPTION PROCESS -->
+          <div class="section-block">
+            <div class="section-header">
+              <div class="section-num">B</div>
+              <h3 id="processTitle">Proses Enkripsi</h3>
+            </div>
+            <div id="processSteps"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-col">
+          <div class="card-badge" style="margin-bottom:1rem">TENTANG S-DES</div>
+          <h2 class="about-title">Apa itu <span class="accent">S-DES?</span></h2>
+          <p class="about-desc">Simplified Data Encryption Standard (S-DES) adalah versi sederhana dari algoritma DES yang dirancang khusus untuk keperluan pembelajaran kriptografi. Algoritma ini menggunakan plaintext/ciphertext 8-bit dan kunci 10-bit.</p>
+        </div>
+        <div class="about-features">
+          <div class="feature-item">
+            <div class="feature-icon">🔑</div>
+            <div>
+              <strong>Key Generation</strong>
+              <p>Menghasilkan K1 dan K2 dari kunci 10-bit melalui permutasi P10, LS-1, P8, LS-2.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🔄</div>
+            <div>
+              <strong>2 Round Function</strong>
+              <p>Dua putaran enkripsi menggunakan EP, XOR, S-Box, P4 dengan kunci berbeda.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📦</div>
+            <div>
+              <strong>S-Box Substitusi</strong>
+              <p>Menggunakan S0 dan S1 untuk substitusi non-linear yang menambah keamanan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 S-DES Calculator &mdash; Aplikasi Simulasi Kriptografi untuk Pembelajaran</p>
+    </div>
+  </footer>
+
+  <script src="sdes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
