@@ -11,6 +11,8 @@
 
 > Aplikasi web simulasi kriptografi **S-DES** dengan visualisasi setiap langkah perhitungan secara lengkap, rinci, dan interaktif — dirancang untuk keperluan **pembelajaran kriptografi**.
 
+🌐 **[www.s-desputraaliansyah.my.id](http://www.s-desputraaliansyah.my.id)**
+
 </div>
 
 ---
@@ -234,6 +236,7 @@ cd Aplikasi-S-DES
 **Putra Alsyah**
 
 [![GitHub](https://img.shields.io/badge/GitHub-putraalsyah-181717?style=for-the-badge&logo=github)](https://github.com/putraalsyah)
+[![Website](https://img.shields.io/badge/Website-s--desputraaliansyah.my.id-FFD600?style=for-the-badge&logo=googlechrome&logoColor=black)](http://www.s-desputraaliansyah.my.id)
 
 </div>
 
